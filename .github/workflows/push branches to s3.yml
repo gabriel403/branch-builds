@@ -19,6 +19,10 @@ jobs:
         run: |
           yarn
           yarn build
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -28,4 +32,4 @@ jobs:
       - name: Deploy
         uses: jonelantha/gatsby-s3-action@v1
         with:
-          dest-s3-bucket: my-gatsby-test
+          dest-s3-bucket: my-gatsby-test/${{ steps.extract_branch.outputs.branch }}
