@@ -28,7 +28,7 @@ jobs:
       - name: Build
         run: |
           yarn
-          yarn build
+          yarn build --prefix-paths
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
